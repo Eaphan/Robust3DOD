@@ -18,11 +18,11 @@ python attack.py --cfg_file XXX --ckpt XXX
 ## Citation
 If you find this work useful in your research, please consider cite:
 ```
-@article{zhang2022comprehensive,
+@article{zhang2023comprehensive,
   title={A Comprehensive Study and Comparison of the Robustness of 3D Object Detectors Against Adversarial Attacks},
   author={Zhang, Yifan and Hou, Junhui and Yuan, Yixuan},
-  journal={arXiv preprint arXiv:2212.10230},
-  year={2022}
+  journal={International Journal of Computer Vision},
+  year={2023}
 }
 ```
 
