@@ -1,6 +1,5 @@
-## A Comprehensive Study and Comparison of the Robustness of 3D Object Detectors Against Adversarial Attacks
-**Abstract**: Deep learning-based 3D object detectors have made significant progress in recent years and have been deployed in a wide range of applications. It is crucial to understand the robustness of detectors against adversarial attacks when employing detectors in security-critical applications. In this paper, we make the first attempt to conduct a thorough evaluation and analysis of the robustness of 3D detectors under adversarial attacks. Specifically, we first extend three kinds of adversarial attacks to the 3D object detection task to benchmark the robustness of state-of-the-art 3D object detectors against attacks on KITTI and Waymo datasets, subsequently followed by the analysis of the relationship between robustness and properties of detectors. Then, we explore the transferability of cross-model, cross-task, and cross-data attacks. We finally conduct comprehensive experiments of defense for 3D detectors, demonstrating that simple transformations like flipping are of little help in improving robustness when the strategy of transformation imposed on input point cloud data is exposed to attackers.
-Our findings will facilitate investigations in understanding and defending the adversarial attacks against 3D object detectors to advance this field.
+## A Comprehensive Study of the Robustness for LiDAR-based 3D Object Detectors against Adversarial Attacks
+**Abstract**: Recent years have witnessed significant advancements in deep learning-based 3D object detection, leading to its widespread adoption in numerous applications. As 3D object detectors become increasingly crucial for security-critical tasks, it is imperative to understand their robustness against adversarial attacks. This paper presents the first comprehensive evaluation and analysis of the robustness of LiDAR-based 3D detectors under adversarial attacks. Specifically, we extend three distinct adversarial attacks to the 3D object detection task, benchmarking the robustness of state-of-the-art LiDAR-based 3D object detectors against attacks on the KITTI and Waymo datasets. We further analyze the relationship between robustness and detector properties. Additionally, we explore the transferability of cross-model, cross-task, and cross-data attacks. Thorough experiments on defensive strategies for 3D detectors are conducted, demonstrating that simple transformations like flipping provide little help in improving robustness when the applied transformation strategy is exposed to attackers. Finally, we propose balanced adversarial focal training, based on conventional adversarial training, to strike a balance between accuracy and robustness. Our findings will facilitate investigations into understanding and defending against adversarial attacks on LiDAR-based 3D object detectors, thus advancing the field.
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2212.10230)
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=Eaphan/Robust3DOD)
@@ -16,7 +15,7 @@ python attack.py --cfg_file XXX --ckpt XXX
 
 
 ## Citation
-If you find this work useful in your research, please consider cite:
+If you find this work useful in your research, please consider citing:
 ```
 @article{zhang2023comprehensive,
   title={A Comprehensive Study and Comparison of the Robustness of 3D Object Detectors Against Adversarial Attacks},
@@ -27,4 +26,4 @@ If you find this work useful in your research, please consider cite:
 ```
 
 ## Acknowledgement
-The code is devloped based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
+The code is developed based on [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
