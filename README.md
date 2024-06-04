@@ -10,18 +10,21 @@ The code is developed on OpenPCDet v0.5. You can refer to [link](docs/INSTALL.md
 The adversarial attacks are implemented in three files: [attack.py](attack.py), [remove.py](remove.py), [attach.py](attach.py). You can run the script like this:
 
 ```
-python attack.py --cfg_file XXX --ckpt XXX 
+python attack.py --cfg_file cfgs/kitti_models/second.yaml --ckpt $PATH_OF_MODEL$
 ```
 
 
 ## Citation
 If you find this work useful in your research, please consider citing:
 ```
-@article{zhang2023comprehensive,
-  title={A Comprehensive Study of the Robustness for LiDAR-based 3D Object Detectors against Adversarial Attacks},
-  author={Zhang, Yifan and Hou, Junhui and Yuan, Yixuan},
-  journal={International Journal of Computer Vision},
-  year={2023}
+@article{zhang2024comprehensive,
+    title={A comprehensive study of the robustness for lidar-based 3d object detectors against adversarial attacks},
+    author={Zhang, Yifan and Hou, Junhui and Yuan, Yixuan},
+    journal={International Journal of Computer Vision},
+    volume={132},
+    number={5},
+    pages={1592--1624},
+    year={2024},
 }
 ```
 
