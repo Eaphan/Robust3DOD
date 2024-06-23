@@ -29,7 +29,7 @@ If you find this work useful in your research, please consider citing:
 ```
 
 ## Known Issues
-1. If the model use DynamicMeanVFE, please commented out the line of "@torch.no_grad()" in pcdet/models/backbones_3d/vfe/dynamic_mean_vfe.py for adverarial attacks.
+1. If the model uses DynamicMeanVFE, please comment out the line of "@torch.no_grad()" in pcdet/models/backbones_3d/vfe/dynamic_mean_vfe.py for adverarial attacks.
 
 
 ## Acknowledgement
