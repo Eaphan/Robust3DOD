@@ -274,7 +274,7 @@ class KittiDataset(DatasetTemplate):
             pickle.dump(all_db_infos, f)
 
     @staticmethod
-    def generate_prediction_dicts(batch_dict, pred_dicts, class_names, output_path=None):
+    def generate_prediction_dicts(batch_dict, pred_dicts, class_names, output_path=None, flip=False, rotate=False, scale=False):
         """
         Args:
             batch_dict:
@@ -299,13 +299,30 @@ class KittiDataset(DatasetTemplate):
             }
             return ret_dict
 
-        def generate_single_sample_dict(batch_index, box_dict):
+        def generate_single_sample_dict(batch_index, box_dict, flip=False, rotate=False, scale=False):
             pred_scores = box_dict['pred_scores'].cpu().numpy()
             pred_boxes = box_dict['pred_boxes'].cpu().numpy()
             pred_labels = box_dict['pred_labels'].cpu().numpy()
             pred_dict = get_template_prediction(pred_scores.shape[0])
             if pred_scores.shape[0] == 0:
                 return pred_dict
+
+            # flip
+            if flip:
+                pred_boxes[:, 1] = -pred_boxes[:, 1]
+                pred_boxes[:, 6] = -pred_boxes[:, 6]
+            elif rotate:
+            # # rotate
+                noise_rotation = -np.pi/8
+                cosa = np.cos(noise_rotation)
+                sina = np.sin(noise_rotation)
+                rot_matrix = np.stack((cosa,  sina, 0, -sina, cosa, 0, 0, 0, 1)).reshape(3,3)
+                pred_boxes[:, :3] = np.dot(pred_boxes[:, :3], rot_matrix)
+                pred_boxes[:, 6] += noise_rotation
+            elif scale:
+            # # scale
+                noise_scale=1.025 # 0.951 1.05
+                pred_boxes[:, :6] /= noise_scale
 
             calib = batch_dict['calib'][batch_index]
             image_shape = batch_dict['image_shape'][batch_index].cpu().numpy()
@@ -329,7 +346,7 @@ class KittiDataset(DatasetTemplate):
         for index, box_dict in enumerate(pred_dicts):
             frame_id = batch_dict['frame_id'][index]
 
-            single_pred_dict = generate_single_sample_dict(index, box_dict)
+            single_pred_dict = generate_single_sample_dict(index, box_dict, flip=flip, rotate=rotate, scale=scale)
             single_pred_dict['frame_id'] = frame_id
             annos.append(single_pred_dict)
 

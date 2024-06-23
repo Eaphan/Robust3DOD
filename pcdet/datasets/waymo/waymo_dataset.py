@@ -219,7 +219,7 @@ class WaymoDataset(DatasetTemplate):
         return data_dict
 
     @staticmethod
-    def generate_prediction_dicts(batch_dict, pred_dicts, class_names, output_path=None):
+    def generate_prediction_dicts(batch_dict, pred_dicts, class_names, output_path=None, flip=False, rotate=False, scale=False):
         """
         Args:
             batch_dict:
@@ -242,7 +242,7 @@ class WaymoDataset(DatasetTemplate):
             }
             return ret_dict
 
-        def generate_single_sample_dict(box_dict):
+        def generate_single_sample_dict(box_dict, flip=False, rotate=False, scale=False):
             pred_scores = box_dict['pred_scores'].cpu().numpy()
             pred_boxes = box_dict['pred_boxes'].cpu().numpy()
             pred_labels = box_dict['pred_labels'].cpu().numpy()
@@ -255,6 +255,9 @@ class WaymoDataset(DatasetTemplate):
             pred_dict['boxes_lidar'] = pred_boxes
 
             return pred_dict
+
+        if flip or rotate or scale:
+            raise NotImplementedError('Not implemented. You can refer to kitti_dataset.py')
 
         annos = []
         for index, box_dict in enumerate(pred_dicts):
