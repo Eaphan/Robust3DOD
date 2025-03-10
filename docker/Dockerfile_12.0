@@ -1,0 +1,41 @@
+FROM nvidia/cuda:12.4.0-devel-ubuntu22.04
+
+# Set environment variables
+ENV NVENCODE_CFLAGS="-I/usr/local/cuda/include"
+ENV CV_VERSION=4.x
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6+PTX"
+
+# Get all dependencies
+RUN apt-get update && apt-get install -y \
+    git zip unzip build-essential python3 cmake python3-pip ffmpeg libsm6 libxext6
+
+WORKDIR /
+
+#RUN git clone https://github.com/Eaphan/Robust3DOD.git
+RUN git clone https://github.com/open-mmlab/OpenPCDet.git
+
+#WORKDIR Robust3DOD
+WORKDIR OpenPCDet
+
+RUN pip3 install -r requirements.txt
+
+RUN pip3 install numpy\<2 av2 kornia==0.5.8 spconv-cu120 # waymo-open-dataset-tf-2-11-0
+
+RUN pip3 install open3d
+
+RUN python3 setup.py develop
+
+# Add NVIDIA package repositories
+RUN apt-get update && apt-get install -y curl gnupg2
+RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | apt-key add -
+RUN curl -fsSL https://nvidia.github.io/libnvidia-container/debian/libnvidia-container.list | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+# Install nvidia-container-toolkit
+RUN apt-get update && apt-get install -y nvidia-container-toolkit
+
+#RUN apt update && apt install -y x11-apps
+RUN apt update && apt install -y mesa-utils
+RUN apt update && apt install -y vim
+
+#RUN python3 -m pcdet.datasets.kitti.kitti_dataset create_kitti_infos tools/cfgs/dataset_configs/kitti_dataset.yaml
